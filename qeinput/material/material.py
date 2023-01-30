@@ -29,7 +29,7 @@ class Material:
     def _get_ibrav(self):
         sg = self.space_group
 
-        # Not yet support the cases ibrav = 0 and ibrav > 4.
+        # Not yet support the cases ibrav = 0 and ibrav > 3.
         if sg in ["Pm-3m"]:
             return 1
         elif sg in ["Fm-3m", "Fd-3m", "F-43m"]:
