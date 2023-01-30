@@ -1,4 +1,5 @@
 # QEInput (Under Construction)
+Python Package for automatic generation of Quantum ESPRESSO input files
 ## Install
 ```Shell
 pip install .
