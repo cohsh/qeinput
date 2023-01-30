@@ -17,5 +17,12 @@ Si_input = InputPW(Si, "./pseudo_dir", [8, 8, 8])
 Si_input.generate(Si.formula_pretty+".scf.in")
 ```
 
+## To be implemented
+    - pw.x
+    - ph.x
+    - matdyn.x
+    - q2r.x
+    - epw.x
+
 ## Disclaimer
 I am not responsible for any detriment caused by the use of this package.
