@@ -13,19 +13,25 @@ Generate a job script `job.sh` to run a pw.x (scf) calculation of silicon using 
 from qeinput.material import Material
 from qeinput.inputs import SlurmJob, InputPW
 
-key = "Your API key of the Materials Project"
 
-Si = Material(key, "mp-149")
+def main():
+    key = "Your API key of the Materials Project"
 
-Si_input = InputPW(Si, "scf", "./pseudo_dir", [8, 8, 8], 60)
-prefix = Si.formula_pretty
-pw_infile = prefix + ".scf.in"
-pw_outfile = prefix + ".scf.out"
-Si_input.generate(pw_infile)
+    Si = Material(key, "mp-149")
 
-job = SlurmJob("PartitionName", 1, 128, 1)
-job.add_srun("pw.x", "", pw_infile, pw_outfile)
-job.generate("job.sh")
+    Si_input = InputPW(Si, "scf", "./pseudo_dir", [8, 8, 8], 60)
+    prefix = Si.formula_pretty
+    pw_infile = prefix + ".scf.in"
+    pw_outfile = prefix + ".scf.out"
+    Si_input.generate(pw_infile)
+
+    job = SlurmJob("PartitionName", 1, 128, 1)
+    job.add_srun("pw.x", "", pw_infile, pw_outfile)
+    job.generate("job.sh")
+
+
+if __name__ == '__main__':
+    main()
 ```
 
 ## To be implemented
