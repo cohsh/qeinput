@@ -11,8 +11,7 @@ Generate a job script `job.sh` to run a pw.x (scf) calculation of silicon using 
 `./samples/generate_jobscript.py`
 ```Python
 from qeinput.material import Material
-from qeinput.inputs import SlurmJob
-from qeinput.inputs import InputPW
+from qeinput.inputs import SlurmJob, InputPW
 
 key = "Your API key of the Materials Project"
 
