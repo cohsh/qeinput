@@ -1,8 +1,8 @@
 import textwrap
 
+slurm = {}
 
-class Shebang():
-    SLURM = textwrap.dedent('''#!/bin/{shell}
+slurm["shebang"] = textwrap.dedent('''#!/bin/{shell}
 #SBATCH -p {partition}
 #SBATCH -N {nodes}
 #SBATCH -n {ntasks}
@@ -10,4 +10,7 @@ class Shebang():
 #SBATCH -o "{output}"
 #SBATCH -e "{error}"
 #SBATCH -J {job_name}
+
 ''')
+
+slurm["srun"] = "srun {program} {option} < {infile} > {outfile}"

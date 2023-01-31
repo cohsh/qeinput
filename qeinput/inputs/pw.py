@@ -1,24 +1,15 @@
 import re
 
 from qeinput.material import Material
-from qeinput.consts import InputFormats
+from qeinput.inputs import InputBase
+
+import qeinput.formats as formats
 
 
-class Input:
-    def __init__(self):
-        self.text = ""
-        self.file_name = "test.in"
-        self.formats = InputFormats()
-
-    def generate(self, file_name):
-        self.file_name = file_name
-        with open(self.file_name, mode="w") as f:
-            f.write(self.text)
-
-
-class InputPW(Input):
-    def __init__(self, material: Material, pseudo_dir: str, k_points: list,
-                 ecutwfc=60, conv_thr="1.D-12", do_shift=False):
+class InputPW(InputBase):
+    def __init__(self, material: Material,
+                 calculation: str, pseudo_dir: str, k_points: list,
+                 ecutwfc: int, conv_thr="1.D-12", do_shift=False):
         super().__init__()
         self.material = material
 
@@ -40,9 +31,9 @@ class InputPW(Input):
                     )
 
         if do_shift:
-            shift = [0, 0, 0]
-        else:
             shift = [1, 1, 1]
+        else:
+            shift = [0, 0, 0]
 
         str_k_points = "{kx} {ky} {kz} {sx} {sy} {sz}".format(
                 kx=k_points[0],
@@ -58,7 +49,7 @@ class InputPW(Input):
         else:
             occupations = "smearing"
 
-        self.text = self.formats.SCF.format(
+        self.text = formats.pw[calculation].format(
                 prefix=material.formula_pretty,
                 pseudo_dir=pseudo_dir,
                 ibrav=material.ibrav,
