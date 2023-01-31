@@ -1,8 +1,8 @@
 import textwrap
 
+pw = {}
 
-class InputFormats():
-    SCF = textwrap.dedent('''
+pw["scf"] = textwrap.dedent('''
 &control
 prefix = '{prefix}'
 calculation = 'scf'
