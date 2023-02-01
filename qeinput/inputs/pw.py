@@ -2,7 +2,6 @@ import re
 
 from qeinput.material import Material
 from qeinput.inputs import InputBase
-
 import qeinput.formats as formats
 
 
@@ -34,21 +33,20 @@ class InputPW(InputBase):
         else:
             shift = [0, 0, 0]
 
-        str_k_points = "{kx} {ky} {kz} {sx} {sy} {sz}".format(
-                kx=k_points[0],
-                ky=k_points[1],
-                kz=k_points[2],
-                sx=shift[0],
-                sy=shift[1],
-                sz=shift[2]
-                )
-
-        if not self.material.is_metal:
+        if not material.is_metal:
             occupations = "fixed"
         else:
             occupations = "smearing"
 
         if calculation == "scf":
+            str_k_points = "{kx} {ky} {kz} {sx} {sy} {sz}".format(
+                    kx=k_points[0],
+                    ky=k_points[1],
+                    kz=k_points[2],
+                    sx=shift[0],
+                    sy=shift[1],
+                    sz=shift[2]
+                    )
             self.text = formats.pw["scf"].format(
                     prefix=material.formula_pretty,
                     pseudo_dir=pseudo_dir,
@@ -62,5 +60,7 @@ class InputPW(InputBase):
                     conv_thr=conv_thr,
                     atomic_species=atomic_species,
                     atomic_positions=atomic_positions,
-                    k_points=str_k_points
+                    k_points_automatic=str_k_points
                     ).strip()
+        elif calculation == "nscf":
+            pass
