@@ -11,7 +11,6 @@ class InputPW(InputBase):
                  calculation: str, pseudo_dir: str, k_points: list,
                  ecutwfc: int, conv_thr="1.D-12", do_shift=False):
         super().__init__()
-        self.material = material
 
         atomic_species = ""
         for element in material.elements:
