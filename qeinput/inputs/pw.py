@@ -48,18 +48,19 @@ class InputPW(InputBase):
         else:
             occupations = "smearing"
 
-        self.text = formats.pw[calculation].format(
-                prefix=material.formula_pretty,
-                pseudo_dir=pseudo_dir,
-                ibrav=material.ibrav,
-                abc="a = {a}".format(a=material.a),
-                nat=material.nsites,
-                ntyp=material.nelements,
-                ecutwfc=ecutwfc,
-                ecutrho=ecutwfc*4,
-                occupations=occupations,
-                conv_thr=conv_thr,
-                atomic_species=atomic_species,
-                atomic_positions=atomic_positions,
-                k_points=str_k_points
-                ).strip()
+        if calculation == "scf":
+            self.text = formats.pw["scf"].format(
+                    prefix=material.formula_pretty,
+                    pseudo_dir=pseudo_dir,
+                    ibrav=material.ibrav,
+                    abc="a = {a}".format(a=material.a),
+                    nat=material.nsites,
+                    ntyp=material.nelements,
+                    ecutwfc=ecutwfc,
+                    ecutrho=ecutwfc*4,
+                    occupations=occupations,
+                    conv_thr=conv_thr,
+                    atomic_species=atomic_species,
+                    atomic_positions=atomic_positions,
+                    k_points=str_k_points
+                    ).strip()
