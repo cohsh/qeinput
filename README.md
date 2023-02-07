@@ -1,5 +1,6 @@
 # QEInput (Under Construction)
 Python Package for automatic generation of Quantum ESPRESSO input files
+and Slurm scripts.
 ## Install
 ```Shell
 pip install .
