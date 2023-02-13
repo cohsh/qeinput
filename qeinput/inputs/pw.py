@@ -80,7 +80,7 @@ class InputPWNSCF(InputPW):
 
         str_k_points = ""
         for k_point in k_points:
-            str_k_points += "{kx} {ky} {kz} 1.0".format(
+            str_k_points += "{kx} {ky} {kz} 1.0\n".format(
                     kx=k_point[0],
                     ky=k_point[1],
                     kz=k_point[2]

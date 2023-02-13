@@ -4,5 +4,10 @@ dist/
 *.egg-info/
 
 api.py
+test.py
 
 ref.sh
+job.sh
+
+*.in
+*.out

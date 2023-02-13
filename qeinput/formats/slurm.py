@@ -13,4 +13,4 @@ slurm["shebang"] = textwrap.dedent('''#!/bin/{shell}
 
 ''')
 
-slurm["srun"] = "srun {program} {option} < {infile} > {outfile}"
+slurm["srun"] = "srun {program} {option} < {infile} > {outfile}\n"
