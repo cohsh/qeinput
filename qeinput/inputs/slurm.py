@@ -21,6 +21,9 @@ class SlurmJob(InputBase):
     def change_shell(self, shell):
         self.shell = shell
 
+    def add_text(self, text):
+        self.text += text
+
     def add_srun(self, program, option, infile, outfile):
         string = formats.slurm["srun"].format(
                 program=program, option=option,
