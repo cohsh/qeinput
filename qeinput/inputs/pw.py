@@ -6,8 +6,7 @@ import qeinput.formats as formats
 
 
 class InputPW(InputBase):
-    def __init__(self, material: Material,
-                 pseudo_dir: str, ecutwfc: int):
+    def __init__(self, material: Material):
         super().__init__()
 
         self.atomic_species = ""
@@ -35,10 +34,10 @@ class InputPW(InputBase):
 
 class InputPWSCF(InputPW):
     def __init__(self, material: Material,
-                 pseudo_dir: str, ecutwfc: int,
+                 pseudo_dir: str, outdir: str, ecutwfc: int,
                  k_points: list,
                  conv_thr="1.D-12", do_shift=False):
-        super().__init__(material, pseudo_dir, ecutwfc)
+        super().__init__(material)
 
         if do_shift:
             shift = [1, 1, 1]
@@ -57,6 +56,7 @@ class InputPWSCF(InputPW):
         self.text = formats.pw["scf"].format(
                 prefix=material.formula_pretty,
                 pseudo_dir=pseudo_dir,
+                outdir=outdir,
                 ibrav=material.ibrav,
                 abc="a = {a}".format(a=material.a),
                 nat=material.nsites,
@@ -73,12 +73,12 @@ class InputPWSCF(InputPW):
 
 class InputPWNSCF(InputPW):
     def __init__(self, material: Material,
-                 pseudo_dir: str, ecutwfc: int,
+                 pseudo_dir: str, outdir: str, ecutwfc: int,
                  k_points: list, nbnd: int,
                  conv_thr="1.D-10"):
-        super().__init__(material, pseudo_dir, ecutwfc)
+        super().__init__(material)
 
-        str_k_points = ""
+        str_k_points = "{n}\n".format(n=str(len(k_points)))
         for k_point in k_points:
             str_k_points += "{kx} {ky} {kz} 1.0\n".format(
                     kx=k_point[0],
@@ -89,6 +89,7 @@ class InputPWNSCF(InputPW):
         self.text = formats.pw["nscf"].format(
                 prefix=material.formula_pretty,
                 pseudo_dir=pseudo_dir,
+                outdir=outdir,
                 ibrav=material.ibrav,
                 abc="a = {a}".format(a=material.a),
                 nat=material.nsites,

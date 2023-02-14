@@ -7,7 +7,7 @@ pw["scf"] = textwrap.dedent('''
 prefix = '{prefix}'
 calculation = 'scf'
 pseudo_dir = '{pseudo_dir}'
-outdir = './'
+outdir = '{outdir}'
 /
 &system
 ibrav = {ibrav}
@@ -34,7 +34,7 @@ pw["nscf"] = textwrap.dedent('''
 prefix = '{prefix}'
 calculation = 'nscf'
 pseudo_dir = '{pseudo_dir}'
-outdir = './'
+outdir = '{outdir}'
 /
 &system
 ibrav = {ibrav}
