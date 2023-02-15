@@ -7,12 +7,13 @@ pip install .
 ```
 
 ## Sample
-Generate a job script `job.sh` to run a pw.x (scf and nscf) calculation of silicon using data on Materials Project.
+Generate a job script `job.sh` to run pw.x calculations of silicon using data on Materials Project.
 
 `./samples/generate_jobscript.py`
 ```Python
+#!/usr/bin/env python
 from qeinput.material import Material
-from qeinput.inputs import SlurmJob, InputPWSCF, InputPWNSCF
+from qeinput.inputs import SlurmJob, InputPWSCF, InputPWNSCF, InputPWVCRelax
 
 
 def main():
@@ -29,8 +30,11 @@ def main():
     Si_input_scf = InputPWSCF(Si, pseudo_dir, outdir, 60, [8, 8, 8])
     Si_input_nscf = InputPWNSCF(Si, pseudo_dir, outdir, 60,
                                 [[0.0, 0.0, 0.0]], 10)
+    Si_input_vcrelax = InputPWVCRelax(Si, pseudo_dir, outdir, 60, [8, 8, 8])
 
-    Si_inputs = {"scf": Si_input_scf, "nscf": Si_input_nscf}
+    Si_inputs = {"scf": Si_input_scf,
+                 "nscf": Si_input_nscf,
+                 "vc-relax": Si_input_vcrelax}
 
     for calc, Si_input in Si_inputs.items():
         infile = prefix + "." + calc + ".in"
