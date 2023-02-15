@@ -103,3 +103,48 @@ class InputPWNSCF(InputPW):
                 atomic_positions=self.atomic_positions,
                 k_points_crystal=str_k_points
                 ).strip()
+
+
+class InputPWVCRelax(InputPW):
+    def __init__(self, material: Material,
+                 pseudo_dir: str, outdir: str, ecutwfc: int,
+                 k_points: list,
+                 a=None,
+                 conv_thr="1.D-12", do_shift=False):
+        super().__init__(material)
+
+        if a is None:
+            self.a = material.a
+        else:
+            self.a = float(a)
+
+        if do_shift:
+            shift = [1, 1, 1]
+        else:
+            shift = [0, 0, 0]
+
+        str_k_points = "{kx} {ky} {kz} {sx} {sy} {sz}".format(
+                kx=k_points[0],
+                ky=k_points[1],
+                kz=k_points[2],
+                sx=shift[0],
+                sy=shift[1],
+                sz=shift[2]
+                )
+
+        self.text = formats.pw["vc-relax"].format(
+                prefix=material.formula_pretty,
+                pseudo_dir=pseudo_dir,
+                outdir=outdir,
+                ibrav=material.ibrav,
+                abc="a = {a}".format(a=self.a),
+                nat=material.nsites,
+                ntyp=material.nelements,
+                ecutwfc=ecutwfc,
+                ecutrho=ecutwfc*4,
+                occupations=self.occupations,
+                conv_thr=conv_thr,
+                atomic_species=self.atomic_species,
+                atomic_positions=self.atomic_positions,
+                k_points_automatic=str_k_points
+                ).strip()
